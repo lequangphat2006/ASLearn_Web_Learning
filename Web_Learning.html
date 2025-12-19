@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASLearn Nền Tảng Học Tập Thế Hệ Mới</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset và biến toàn cục */
+        :root {
+            --primary: #4a6bff;
+            --secondary: #00c896;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --gray: #718096;
+            --light-gray: #e2e8f0;
+            --danger: #e53e3e;
+            --warning: #d69e2e;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5bff;
+            transform: translateY(-2px);
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f5f7fb 0%, #e4edff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .usp-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .usp-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 300px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .usp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .usp-icon {
+            background-color: #e4edff;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: var(--primary);
+        }
+
+        /* Siêu phân loại section */
+        .classification {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: var(--dark);
+        }
+
+        .classification-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 180px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .step-arrow {
+            font-size: 24px;
+            color: var(--gray);
+        }
+
+        /* Bộ lọc tìm kiếm */
+        .filter-container {
+            background-color: var(--light);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .filter-title {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 20px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .filter-group select {
+            padding: 12px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--light-gray);
+            background-color: white;
+            font-size: 16px;
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Tài liệu mẫu */
+        .documents-section {
+            padding: 60px 0;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .document-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .document-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .document-category {
+            display: inline-block;
+            background-color: #e4edff;
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .document-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .document-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .document-body {
+            padding: 20px;
+        }
+
+        .document-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .document-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background-color: var(--light-gray);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 13px;
+            color: var(--dark);
+        }
+
+        .document-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--light);
+        }
+
+        .document-verified {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Uy tín kép section */
+        .trust-section {
+            padding: 60px 0;
+            background-color: white;
+            text-align: center;
+        }
+
+        .trust-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .trust-card {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            width: 350px;
+            box-shadow: var(--shadow);
+        }
+
+        .trust-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .trust-1 .trust-icon {
+            color: var(--primary);
+        }
+
+        .trust-2 .trust-icon {
+            color: var(--secondary);
+        }
+
+        .trust-3 .trust-icon {
+            color: var(--warning);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .step-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .classification-steps {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>ASLearn</span>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#classification">Siêu Phân Loại</a>
+                    <a href="#documents">Tài Liệu</a>
+                    <a href="#trust">Uy Tín Kép</a>
+                    <a href="#about">Về Chúng Tôi</a>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-outline">Đăng nhập</button>
+                    <button class="btn btn-primary">Dùng thử miễn phí</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Nền Tảng Học Tập Số Tích Hợp Trí Tuệ Nhân Tạo</h1>
+            <p>Giải pháp toàn diện cho sinh viên đại học: Tài liệu chất lượng được tổ chức khoa học, tìm kiếm thông minh chỉ trong 3 bước</p>
+            <button class="btn btn-primary" style="padding: 15px 30px; font-size: 18px;">
+                <i class="fas fa-rocket"></i> Bắt đầu ngay
+            </button>
+            
+            <div class="usp-container">
+                <div class="usp-card">
+                    <div class="usp-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3>Siêu Phân Loại</h3>
+                    <p>Tìm đúng tài liệu chỉ trong 3 cú nhấp với hệ thống phân loại sâu: Trường → Ngành → Môn → Giảng viên</p>
+                </div>
+                
+                <div class="usp-card">
+                    <div class="usp-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Uy Tín Kép</h3>
+                    <p>Chất lượng được đảm bảo bởi xác thực giảng viên + đánh giá sinh viên + kiểm duyệt nội bộ</p>
+                </div>
+                
+                <div class="usp-card">
+                    <div class="usp-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Tài Liệu Chất Lượng</h3>
+                    <p>Thư viện tài liệu phong phú, cập nhật liên tục, phù hợp với chương trình đào tạo Việt Nam</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Siêu Phân Loại Section -->
+    <section id="classification" class="classification">
+        <div class="container">
+            <h2 class="section-title">Siêu Phân Loại - Tìm Tài Liệu Chỉ 3 Bước</h2>
+            
+            <div class="classification-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Chọn Trường</h3>
+                    <p>Đại học Quốc gia, Đại học Bách Khoa, Kinh tế Quốc dân, ...</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Chọn Ngành/Môn</h3>
+                    <p>Công nghệ thông tin, Kinh tế, Ngôn ngữ Anh, Toán cao cấp, ...</p>
+                </div>
+                
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Chọn Giảng Viên</h3>
+                    <p>Tài liệu được phân loại theo từng giảng viên cụ thể</p>
+                </div>
+            </div>
+            
+            <!-- Bộ lọc tìm kiếm -->
+            <div class="filter-container">
+                <h3 class="filter-title">Tìm tài liệu của bạn</h3>
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label for="university"><i class="fas fa-university"></i> Trường Đại học</label>
+                        <select id="university">
+                            <option value="">Chọn trường</option>
+                            <option value="qnu">Đại học Quốc gia (QN)</option>
+                            <option value="bku">Đại học Bách Khoa</option>
+                            <option value="neu">Đại học Kinh tế Quốc dân</option>
+                            <option value="ftu">Đại học Ngoại thương</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="major"><i class="fas fa-graduation-cap"></i> Ngành học</label>
+                        <select id="major">
+                            <option value="">Chọn ngành</option>
+                            <option value="it">Công nghệ thông tin</option>
+                            <option value="business">Quản trị kinh doanh</option>
+                            <option value="economics">Kinh tế học</option>
+                            <option value="language">Ngôn ngữ Anh</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="subject"><i class="fas fa-book"></i> Môn học</label>
+                        <select id="subject">
+                            <option value="">Chọn môn</option>
+                            <option value="web">Lập trình Web</option>
+                            <option value="database">Cơ sở dữ liệu</option>
+                            <option value="math">Toán cao cấp</option>
+                            <option value="marketing">Marketing căn bản</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="lecturer"><i class="fas fa-chalkboard-teacher"></i> Giảng viên</label>
+                        <select id="lecturer">
+                            <option value="">Chọn giảng viên</option>
+                            <option value="teacher1">TS. Nguyễn Văn A</option>
+                            <option value="teacher2">PGS.TS. Trần Thị B</option>
+                            <option value="teacher3">ThS. Lê Văn C</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-times"></i> Đặt lại
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i> Tìm kiếm tài liệu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tài liệu mẫu Section -->
+    <section id="documents" class="documents-section">
+        <div class="container">
+            <h2 class="section-title">Tài Liệu Nổi Bật</h2>
+            
+            <div class="documents-grid">
+                <!-- Tài liệu 1 -->
+                <div class="document-card">
+                    <div class="document-header">
+                        <div class="document-category">Công nghệ thông tin</div>
+                        <h3 class="document-title">Bài giảng Lập trình Web - HTML/CSS/JS</h3>
+                        <div class="document-meta">
+                            <span><i class="far fa-user"></i> TS. Nguyễn Văn A</span>
+                            <span><i class="far fa-calendar"></i> 15/10/2023</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-body">
+                        <p class="document-description">Toàn bộ slide bài giảng môn Lập trình Web, bao gồm HTML5, CSS3 và JavaScript cơ bản. Có ví dụ minh họa và bài tập thực hành.</p>
+                        
+                        <div class="document-tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Frontend</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-footer">
+                        <div class="document-verified">
+                            <i class="fas fa-check-circle"></i> Đã xác thực bởi giảng viên
+                        </div>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> Tải về
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tài liệu 2 -->
+                <div class="document-card">
+                    <div class="document-header">
+                        <div class="document-category">Kinh tế</div>
+                        <h3 class="document-title">Đề cương ôn tập Kinh tế vi mô</h3>
+                        <div class="document-meta">
+                            <span><i class="far fa-user"></i> PGS.TS. Trần Thị B</span>
+                            <span><i class="far fa-calendar"></i> 10/11/2023</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-body">
+                        <p class="document-description">Đề cương chi tiết ôn tập môn Kinh tế vi mô, bao gồm lý thuyết, công thức và bài tập mẫu. Phù hợp cho kỳ thi cuối kỳ.</p>
+                        
+                        <div class="document-tags">
+                            <span class="tag">Kinh tế vi mô</span>
+                            <span class="tag">Đề cương</span>
+                            <span class="tag">Ôn tập</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-footer">
+                        <div class="document-verified">
+                            <i class="fas fa-check-circle"></i> Đã xác thực bởi giảng viên
+                        </div>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-download"></i> Tải về
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tài liệu 3 -->
+                <div class="document-card">
+                    <div class="document-header">
+                        <div class="document-category">Toán học</div>
+                        <h3 class="document-title">Bài tập Toán cao cấp có lời giải</h3>
+                        <div class="document-meta">
+                            <span><i class="far fa-user"></i> ThS. Lê Văn C</span>
+                            <span><i class="far fa-calendar"></i> 05/12/2023</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-body">
+                        <p class="document-description">Tuyển tập bài tập Toán cao cấp A1 có lời giải chi tiết. Bao gồm đạo hàm, tích phân, chuỗi số và phương trình vi phân.</p>
+                        
+                        <div class="document-tags">
+                            <span class="tag">Toán cao cấp</span>
+                            <span class="tag">Bài tập</span>
+                            <span class="tag">Giải tích</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-footer">
+                        <div class="document-verified">
+                            <i class="fas fa-check-circle"></i> Đã xác thực bởi giảng viên
+                        </div>
+                        <div>
+                            <span style="color: var(--warning); margin-right: 10px;">
+                                <i class="fas fa-star"></i> 4.8/5
+                            </span>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i> Tải về
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Uy tín kép Section -->
+    <section id="trust" class="trust-section">
+        <div class="container">
+            <h2 class="section-title">Cơ Chế Uy Tín Kép</h2>
+            <p style="max-width: 800px; margin: 0 auto 30px; color: var(--gray);">Chất lượng tài liệu được đảm bảo bởi 3 lớp kiểm duyệt chặt chẽ</p>
+            
+            <div class="trust-cards">
+                <div class="trust-card trust-1">
+                    <div class="trust-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Xác thực từ Giảng viên</h3>
+                    <p>Tài liệu được chính giảng viên phụ trách môn học xác nhận về tính chính xác và phù hợp với chương trình giảng dạy.</p>
+                </div>
+                
+                <div class="trust-card trust-2">
+                    <div class="trust-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Đánh giá từ Sinh viên</h3>
+                    <p>Hệ thống đánh giá và phản hồi từ cộng đồng sinh viên đã sử dụng tài liệu, giúp xếp hạng chất lượng thực tế.</p>
+                </div>
+                
+                <div class="trust-card trust-3">
+                    <div class="trust-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3>Kiểm duyệt Nội bộ</h3>
+                    <p>Đội ngũ chuyên môn của EduHub kiểm tra lần cuối về định dạng, bản quyền và tiêu chuẩn chất lượng trước khi xuất bản.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ASLearn</h3>
+                    <p>Nền tảng học tập số đáng tin cậy dành cho sinh viên đại học Việt Nam. Giải pháp toàn diện cho việc tìm kiếm và chia sẻ tài liệu học tập chất lượng.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul class="footer-links">
+                        <li><a href="#classification">Siêu Phân Loại</a></li>
+                        <li><a href="#documents">Tài liệu học tập</a></li>
+                        <li><a href="#trust">Uy tín kép</a></li>
+                        <li><a href="#about">Về chúng tôi</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Hỗ trợ</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Điều khoản dịch vụ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Liên hệ</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@quangphat.edu.vn</li>
+                        <li><i class="fas fa-phone"></i> (84+) 913.588.865</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Số 100/5 , AMa Khê , Tân Lập,Daklak</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 ASLearn. Tất cả các quyền được bảo lưu. Phiên bản ActiveSoft.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript cơ bản cho các tương tác
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý nút tìm kiếm
+            const searchBtn = document.querySelector('.filter-actions .btn-primary');
+            searchBtn.addEventListener('click', function() {
+                const university = document.getElementById('university').value;
+                const major = document.getElementById('major').value;
+                const subject = document.getElementById('subject').value;
+                const lecturer = document.getElementById('lecturer').value;
+                
+                if (!university || !major || !subject) {
+                    alert('Vui lòng chọn ít nhất Trường, Ngành và Môn học để tìm kiếm');
+                    return;
+                }
+                
+                alert(`Đang tìm kiếm tài liệu:\nTrường: ${document.getElementById('university').options[document.getElementById('university').selectedIndex].text}\nNgành: ${document.getElementById('major').options[document.getElementById('major').selectedIndex].text}\nMôn: ${document.getElementById('subject').options[document.getElementById('subject').selectedIndex].text}\nGiảng viên: ${lecturer ? document.getElementById('lecturer').options[document.getElementById('lecturer').selectedIndex].text : 'Tất cả'}`);
+            });
+            
+            // Xử lý nút đặt lại
+            const resetBtn = document.querySelector('.filter-actions .btn-outline');
+            resetBtn.addEventListener('click', function() {
+                document.getElementById('university').selectedIndex = 0;
+                document.getElementById('major').selectedIndex = 0;
+                document.getElementById('subject').selectedIndex = 0;
+                document.getElementById('lecturer').selectedIndex = 0;
+            });
+            
+            // Xử lý nút tải về
+            const downloadBtns = document.querySelectorAll('.document-footer .btn-primary');
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const docTitle = this.closest('.document-card').querySelector('.document-title').textContent;
+                    alert(`Bạn đang yêu cầu tải về tài liệu: "${docTitle}".\n\nTrong phiên bản đầy đủ, bạn sẽ được chuyển đến trang tải về hoặc xem trước tài liệu.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
